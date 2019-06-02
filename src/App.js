@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './styles/css/app.css'
+
 import Login from './components/molecules/login'
 
 function App() {

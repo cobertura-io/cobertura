@@ -34,15 +34,17 @@ function Login () {
   }
 
   return (
-    <>
+    <div className='login-container'>
       { error }
       <form>
-        <Input type={ InputType.EMAIL } place='EMAIL' onChange={handleEmail} />
-        <Input type={ InputType.PASSWORD } place='SENHA' onChange={handlePassword} />
+        <div className='input-container'>
+          <Input type={ InputType.EMAIL } place='EMAIL' onChange={handleEmail} />
+          <Input type={ InputType.PASSWORD } place='SENHA' onChange={handlePassword} />
 
-        <Button type={ ButtonType.SUBMIT } onClick={handleSubmit} >LOGIN</Button>
+          <Button type={ ButtonType.SUBMIT } onClick={handleSubmit} >LOGIN</Button>
+        </div>
       </form>
-    </>
+    </div>
   )
 }
 

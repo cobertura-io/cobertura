@@ -8,7 +8,7 @@ export const InputType = {
 
 function Input (props) {
   const { place, type, onChange } = props 
-  return <input type={ type } onChange={ onChange } placeholder={ place } />
+  return <input className='input' type={ type } onChange={ onChange } placeholder={ place } />
 }
 
 Input.defaultProps = {
