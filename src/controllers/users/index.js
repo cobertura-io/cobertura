@@ -1,16 +1,13 @@
-const userDAO = require('./../../models/userDAO')
+const api = require('./../../lib/api')
 
 module.exports = {
-  async index(req, res) {
-    return res.render('profile');
-  },
-  async indexID(req, res) {
-    const response = await userDAO.getUsers(req.params.id, function(err, result) {
-      if(result != 0 ) {
-        return res.render('profile', { id: req.params.id, houses: result })
-      } else {
-        return res.redirect('/')
-      }
-    })
+  async getById(req, res) {
+    const id = req.params.id
+
+    const response = await api.get(`users/${id}`)
+      .then(result => result.data )
+      .catch(err => console.log(err))
+
+    return res.render('profile', { layout: 'default', user: response.data });
   }
 }
