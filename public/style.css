@@ -13,6 +13,7 @@ h1 {
 
 .containerCard {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
 }
 
