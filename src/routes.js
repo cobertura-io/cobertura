@@ -6,6 +6,6 @@ const UserController = require('./controllers/users')
 routes.get('/', (req, res) => {
   res.render('login', { layout: 'default' })
 })
-routes.get('/perfil/:id', UserController.getById)
+routes.get('/perfil/:url', UserController.getById)
 
 module.exports = routes;

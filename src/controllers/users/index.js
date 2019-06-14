@@ -2,13 +2,19 @@ const api = require('./../../lib/api')
 
 module.exports = {
   async getById(req, res) {
-    const id = req.params.id
+    const url = req.params.url
 
-    const user = await api.get(`users/broker/${id}`)
+    const user = await api.get(`users/broker/${url}`)
       .then(result => result.data.data[0] )
-      .catch(err => console.log(err))
-    
-    const houses = await api.get(`houses/${id}`)
+      .catch(err => err)
+
+    if(user.response.data.error)
+      return res.render('error', {
+        layout: 'default',
+        title: 'Cobertura: Ops!'
+      })
+
+    const houses = await api.get(`houses/${user.pk_user}`)
       .then(result => result.data.data )
       .catch(err => console.log(err))
 
