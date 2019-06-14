@@ -1,7 +1,7 @@
 const axios = require('axios')
 
 const api = axios.create({
-    baseURL: 'http://cobertura.io/users'
+    baseURL: 'http://cobertura.io/'
 })
 
 module.exports = api
