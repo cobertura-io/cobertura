@@ -52,7 +52,6 @@
     }
 
     // Some special margin utils
-    .m#{$infix}-auto { margin: auto !important; }
     .mt#{$infix}-auto,
     .my#{$infix}-auto {
       margin-top: auto !important;

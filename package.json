@@ -1,7 +1,7 @@
 {
   "scripts": {
     "start": "nodemon ./src",
-    "sass": "sass --watch ./public/sass:public/css",
+    "sass": "sass --watch ./public/sass:public/css --style compressed",
     "dev": "concurrently --kill-others \"npm run start\" \"npm run sass\""
   },
   "dependencies": {

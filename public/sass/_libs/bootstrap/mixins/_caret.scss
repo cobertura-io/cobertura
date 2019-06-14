@@ -27,19 +27,19 @@
 
 @mixin caret($direction: down) {
   @if $enable-caret {
-    &::after {
-      display: inline-block;
-      margin-left: $caret-spacing;
-      vertical-align: $caret-vertical-align;
-      content: "";
-      @if $direction == down {
-        @include caret-down;
-      } @else if $direction == up {
-        @include caret-up;
-      } @else if $direction == right {
-        @include caret-right;
-      }
-    }
+    // &::after {
+    //   display: inline-block;
+    //   margin-left: $caret-spacing;
+    //   vertical-align: $caret-vertical-align;
+    //   content: "";
+    //   @if $direction == down {
+    //     @include caret-down;
+    //   } @else if $direction == up {
+    //     @include caret-up;
+    //   } @else if $direction == right {
+    //     @include caret-right;
+    //   }
+    // }
 
     @if $direction == left {
       &::after {

@@ -4,6 +4,9 @@ const routes = express.Router();
 const UserController = require('./controllers/users')
 
 routes.get('/', (req, res) => {
+  res.render('index', { layout: 'default' })
+})
+routes.get('/login', (req, res) => {
   res.render('login', { layout: 'default' })
 })
 routes.get('/perfil/:id', UserController.getById)
