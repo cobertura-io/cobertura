@@ -1,29 +1,26 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Cobertura: Ronaldinho</title>
-    <link rel="stylesheet" href="../style.css">
-  </head>
-  <body>
-    <img src='../images/logo.png' alt='Logo Cobertura' />
+<body>
+  <img src='../images/logo.png' alt='Logo Cobertura' />
 
-    <div class='containerCorretor'>
-      <img class='avatarCorretor' src='https://pbs.twimg.com/profile_images/972672468031885313/VAemDZAQ.jpg' alt='Ronaldo' />
-      <div>
-        <h1>{{ user.name }} {{ user.surname }}</h1>
-        <p>{{ houses.length }} Imóveis disponível para visitas</p>
-        <p class='tag'>CORRETOR PREMIUM</p>
-      </div>
+  <div class='containerCorretor'>
+    <img class='avatarCorretor' src='../images/avatars/{{ user.avatar }}' alt='Imagem do {{ user.name }}' />
+    <div>
+      <h1>{{ user.name }} {{ user.surname }}</h1>
+      <p>Telefone: {{ user.phone }} | Email: {{ user.email }}</p>
+      <p>Estado: {{ user.state }} | Creci: {{ user.creci }}</p>
+      <p>{{ houses.length }} Imóveis disponível para visitas</p>
     </div>
+  </div>
     
-    <h1>Imóveis</h1>
+  <h1>Imóveis</h1>
     <div class='containerCard'>
-      {{#each houses}}
-        <div class='card'>
-          <h1>{{ title }}</h1>
-        </div>
-      {{/each}}
-    </div>
-  </body>
-</html>
+    {{#each houses}}
+      <div class='card'>
+        <h1>{{ title }}</h1>
+        <p>quartos: {{ bedrooms }}</p>
+        <p>banheiros: {{ bathrooms }}</p>
+        <p>garagem: {{ garage }}</p>
+        <p>area: {{ house_metreage }}m²</p>
+      </div>
+    {{/each}}
+  </div>
+</body>
