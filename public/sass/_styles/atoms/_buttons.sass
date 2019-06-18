@@ -1,0 +1,50 @@
+.btn
+  border: none
+  border-radius: 36px
+  display: inline-block
+  height: 36px
+  line-height: 36px
+  padding: 0 32px
+  vertical-align: middle
+  -webkit-tap-highlight-color: transparent
+  font-weight: 500
+  box-shadow: 2px 2px 8px -1px transparentize($black, 0.7)
+  transition: .2s
+  &:hover
+    box-shadow: 1px 1px 8px -1px transparentize($black, 0.5)
+
+.btn-link
+  border: none
+  display: inline-block
+  height: 36px
+  line-height: 36px
+  padding: 0 32px
+  -webkit-tap-highlight-color: transparent
+  background-color: transparent
+  transition: .2s
+  color: $primary
+  box-shadow: none
+  &:hover
+    box-shadow: none
+    color: lighten($primary, 10)
+
+.btn-white
+  background-color: $white
+  color: $primary !important
+  &:hover
+    background-color: darken($white, 5)
+  &:focus
+    background-color: darken($white, 10)
+    box-shadow: none
+
+%btn-search
+  border-radius: 0
+  border: none
+  box-shadow: none
+  background-color: transparent !important
+  color: $primary
+  cursor: pointer
+  padding: 0 $space-3
+  font-weight: 900
+  &:hover
+    color: lighten($primary, 20)

@@ -1,0 +1,23 @@
+%input-search
+  display: block
+  width: 100%
+  height: calc(2.25rem + 2px)
+  padding: 0 $space-3
+  font-size: 1rem
+  line-height: 1.5
+  color: $black
+  border: none
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out
+  flex-grow: 2
+  border-radius: 0
+  background-color: transparent !important
+  color: $black
+  font-weight: 500
+  &::placeholder
+    color: lighten($black, 40)
+    font-size: 14px
+    font-weight: 500
+  &:focus
+    border: 0 !important
+    outline: 0 !important
+    box-shadow: none !important

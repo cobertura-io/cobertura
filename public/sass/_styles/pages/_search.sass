@@ -1,0 +1,38 @@
+.search
+  height: 100vh
+  background-color: $primary
+  color: $white
+  nav
+    box-shadow: none
+    .nav-wrapper
+      display: flex
+      justify-content: space-between
+      align-items: center
+      width: 95%
+      margin: 0 auto
+      ul li a 
+        color: $white
+  .big-container
+    display: flex
+    width: 95%
+    height: calc(100% - 64px)
+    margin: 0 auto
+    .cta
+      align-self: center
+      margin-bottom: 64px
+      .display
+        letter-spacing: -3px
+        margin-bottom: $space-2
+  
+  .decoration
+    height: 100%
+    display: flex
+    align-items: center
+    .sofa
+      z-index: 1
+      transform: translateX($space-6)
+    .bubble
+      position: absolute
+      bottom: -$space-1 
+      right: -4px
+      width: 600px
