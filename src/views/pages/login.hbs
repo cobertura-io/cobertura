@@ -1,39 +1,63 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Cobertura</title>
-  </head>
-  <body>
 
-    <section class='login'>
-      <div class="row">
-        <div class="col s7">
-          <div class="welcome">
-            <h1 class="display">Que bom que você veio!</h1>
-            <img src="../images/sofa.png" alt="ilustração de um sofá" width="500" class="sofa">
-            <div class="copyright">
-              <p>Feito com <b></b> em <strong>São José dos Campos.</strong></p>
-              <p>©2019 Cobertura Serviços Imobiliários.</p>
-            </div>
+<head>
+  <meta charset="utf-8">
+  <title>Cobertura</title>
+</head>
+
+<body>
+
+  <section class='login'>
+    <div class="row">
+      <div class="col s7">
+        <div class="welcome">
+          <h1 class="display">Que bom que você veio!</h1>
+          <img src="../images/sofa.png" alt="ilustração de um sofá" width="500" class="sofa">
+          <div class="copyright">
+            <p>Feito com <b></b> em <strong>São José dos Campos.</strong></p>
+            <p>©2019 Cobertura Serviços Imobiliários.</p>
           </div>
         </div>
-        <div class="col s5 login-form">
+      </div>
+      <div class="col s5 login-form">
+        <div class="container">
           <div class="login-logo">
+            <a href="/">
             <img src="../images/logo_colored.png" alt="Logo do Cobertura" width="250">
+            </a>
           </div>
           <div class="login-headers">
             <h1>Seja bem-vindo.</h1>
             <h2>Faça login para continuar:</h2>
           </div>
-        <form>
-          <input name='email' type='email' placeholder="EMAIL" /><br>
-          <input name='password' type='password' placeholder="SENHA" /><br>
-          <button id='btnLogin' type='submit'>LOGIN</button>
-        </form>
+          <form id="login-form" name="login-form" method="POST">
+            <div class="row">
+              <div class="input-field col s12">
+                <input id="Email" type="email" class="validate" required>
+                <label for="Email">Email</label>
+                <span class="helper-text" data-error="Esse e-mail parece estar errado."></span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12 margin-none">
+                <input id="password" type="password" class="validate" required>
+                <label for="password">Senha</label>
+                <a href="#" class="helper-password">Esqueceu a senha?</a>
+              </div>
+            </div>
+            <button id='btnLogin' type='submit' class="btn btn-primary">LOGIN</button>
+            <div class="register">
+              <p>Ainda não tem uma conta?</p>
+              <a href="#">Crie uma!</a>
+            </div>
+          </form>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-  </body>
+  <script src="../js/materialize.min.js"></script>
+</body>
+
 </html>
