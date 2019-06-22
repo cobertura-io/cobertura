@@ -1,0 +1,50 @@
+.navbar
+  line-height: unset
+  box-shadow: 0 2px 10px -5px rgba(0,0,0,0.3)
+  .nav-wrapper
+    display: flex
+    justify-content: space-between
+    .brand-logo
+      margin-left: $space-2
+    .menu
+      width: 200px
+      display: flex
+      justify-content: space-between
+      align-items: center
+      a 
+        color: $black
+        line-height: 64px
+        font-weight: 500
+        &:hover
+          color: lighten($black, 40)
+        &:focus
+          color: darken($secondary, 20)
+
+        &.active
+          color: $white
+          background-color: $primary
+          padding: 0 $space-3
+          height: 28px
+          line-height: 28px
+          border-radius: $space-5
+          font-weight: normal
+          &:hover
+            padding: 0 ($space-3 + 2px)
+            background-color: transparentize($primary, .2)
+          &:focus
+            padding: 0 ($space-3 + 1.5px)
+            background-color: transparentize(darken($primary, 8), .1)
+
+    .perfil
+      display: flex
+      flex-direction: row
+      justify-content: flex-end
+      align-items: center
+      margin-right: $space-2
+      .img-perfil
+        border-radius: 50%
+        box-shadow: 4px 4px 8px -2px transparentize($black, .8)
+      .dropdown
+        .dropdown-item
+          .fa
+            color: lighten($black, 20)
