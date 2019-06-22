@@ -9,6 +9,9 @@ routes.get('/', (req, res) => {
 routes.get('/login', (req, res) => {
   res.render('login', { layout: 'default' })
 })
+routes.get('/imoveis', (req, res) => {
+  res.render('imoveis', { layout: 'default' })
+})
 routes.get('/perfil/:url', UserController.getById)
 
 module.exports = routes;
