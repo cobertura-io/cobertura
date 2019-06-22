@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-  <meta charset="utf-8">
-  <title>Cobertura</title>
-</head>
-
 <body>
-
   <section class='login'>
     <div class="row">
       <div class="col s7">
@@ -30,18 +21,19 @@
           <div class="login-headers">
             <h1>Seja bem-vindo.</h1>
             <h2>Faça login para continuar:</h2>
+            <div id='alertMessage' class='alert' role="alert"></div>
           </div>
-          <form id="login-form" name="login-form" method="POST">
+          <form id="login-form" name="login-form">
             <div class="row">
               <div class="input-field col s12">
-                <input id="Email" type="email" class="validate" required>
+                <input name="email" type="email" class="validate" required>
                 <label for="Email">Email</label>
                 <span class="helper-text" data-error="Esse e-mail parece estar errado."></span>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s12 margin-none">
-                <input id="password" type="password" class="validate" required>
+                <input name="password" type="password" class="validate" required>
                 <label for="password">Senha</label>
                 <a href="#" class="helper-password">Esqueceu a senha?</a>
               </div>
@@ -58,6 +50,56 @@
   </section>
 
   <script src="../js/materialize.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </body>
+<script>
+  const btnLogin = document.getElementById('btnLogin')
+  const alertMessage = document.getElementById('alertMessage')
 
-</html>
+  alertMessage.style.display = 'none';
+
+  btnLogin.addEventListener('click', (e) => {
+    e.preventDefault()
+    validator()
+  })
+
+
+  async function validator () {
+    let resultFetch = null
+
+    const inputEmail = document.forms["login-form"]["email"].value
+    const inputPassword = document.forms["login-form"]["password"].value
+
+    try {
+      resultFetch = await axios.post('http://localhost:8085/users/authenticate', {
+        email: inputEmail,
+        password: inputPassword
+      })
+
+      messageLogin(resultFetch.data.message)
+
+    } catch (err) {
+      console.log(err);
+    }
+
+    if(resultFetch !== null && resultFetch.data.token) {
+      try {
+        const resultSession = await axios.post('/auth', {
+          token: resultFetch.data.token
+        })
+
+        console.log(resultSession)
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }
+
+  function messageLogin(message) {
+    const changeDisplay = alertMessage.style.display
+    if(changeDisplay === "none") 
+      alertMessage.style.display = "block"
+      alertMessage.classList.add('alert-danger')
+      alertMessage.innerHTML = message
+  }
+</script>
