@@ -22,7 +22,7 @@ app.engine('hbs', hbs({
   layoutsDir: path.join(__dirname, 'views/layout/'),
   partialsDir: path.join(__dirname, 'views/partials/')
 }))
-/*
+
 app.use(session({
   secret: '63c363900743460b3cf1eb09ce4fbf18',
   name: 'sessionCobertura',
@@ -31,7 +31,6 @@ app.use(session({
   cookie: { secure: false },
   store: new redisStore({ host: 'localhost', port: 6379, client: redisClient, ttl: 86400 }),
 }));
-*/
 app.use(express.static('public'))
 app.use(require('./routes'));
 
