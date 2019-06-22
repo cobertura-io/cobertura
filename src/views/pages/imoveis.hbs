@@ -21,72 +21,100 @@
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="../js/bootstrap.bundle.min.js"></script>
   <script>
-    var map;
-    var myLatLng = { lat: -23.2530996, lng: -45.898194100000005 };
+      var map;
 
-    var iconBase = 'http://localhost:8080/images/marker.svg'
-    var icons = {
-      house: {
-        icon: iconBase
-      },
-    };
+      var locations = [
+        {lat: -23.2530996, lng: -45.898194100000005},
+        {lat: -23.252713, lng: -45.897972},
+        {lat: -23.253962, lng: -45.898405},
+        {lat: -23.239188, lng: -45.894942},
+        {lat: -23.239188, lng: -45.894942}
+      ]
 
-    function initMap() {
-      map = new google.maps.Map(document.getElementById('map'), {
-        center: { lat: -34.397, lng: 150.644 },
-        zoom: 14,
-        disableDefaultUI: true
-      });
+      var iconBase = 'http://localhost:8080/images/marker.svg'
+      var icons = {
+        house: {
+          icon: iconBase
+        },
+      };
 
-      var contentString = '<div id="content">' +
-        '<div id="siteNotice">' +
-        '</div>' +
-        '<h1 id="firstHeading" class="firstHeading">Casa do waldrey</h1>' +
-        '<div id="bodyContent">' +
-        '<p>Uma casa feita para reuniões do Cobertura</p>' +
-        '</div>' +
-        '</div>';
-
-      var infowindow = new google.maps.InfoWindow({
-        content: contentString
-      });
-
-      var marker = new google.maps.Marker({
-        position: myLatLng,
-        map: map,
-        icon: icons.house.icon,
-        title: 'Uluru (Ayers Rock)'
-      });
-      marker.addListener('click', function () {
-        infowindow.open(map, marker);
-      });
-
-      // Try HTML5 geolocation.
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-          var pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          };
-
-          map.setCenter(pos);
-        }, function () {
-          handleLocationError(true, infoWindow, map.getCenter());
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -23.2530996, lng: -45.898194100000005},
+          zoom: 15,
+          disableDefaultUI: true
         });
-      } else {
-        // Browser doesn't support Geolocation
-        handleLocationError(false, infoWindow, map.getCenter());
-      }
-    }
+        map.setOptions({styles: styles['hide']});
 
-    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-      infoWindow.setPosition(pos);
-      infoWindow.setContent(browserHasGeolocation ?
-        'Error: The Geolocation service failed.' :
-        'Error: Your browser doesn\'t support geolocation.');
-      infoWindow.open(map);
-    }
-  </script>
+        var markers = locations.map(function(location, i) {
+          return new google.maps.Marker({
+            position: location,
+            icon: iconBase
+          });
+        });
+
+        var mcOptions = {
+            //imagePath: 'https://googlemaps.github.io/js-marker-clusterer/images/m',
+          styles:[{
+
+          url: iconBase,
+                width: 30,
+                height: 30,
+                textSize: 14,
+                fontFamily:"CircularStd",
+                textColor:"white",
+                //color: #00FF00,
+          }]
+
+        };
+
+        var markerCluster = new MarkerClusterer(map, markers, mcOptions);
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      }
+
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+      }
+
+      var styles = {
+        default: null,
+        hide: [
+          {
+            featureType: 'poi',
+            stylers: [{visibility: 'off'}]
+          },
+          {
+            featureType: 'transit',
+            elementType: 'labels.icon',
+            stylers: [{visibility: 'off'}]
+          }
+        ]
+      };
+
+      </script>
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+    </script>
+    </script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATtQNsJcdUPFYLDundA0OV9FWlN5WXpak&callback=initMap"
     async defer></script>
 </body>
