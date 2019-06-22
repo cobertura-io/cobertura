@@ -25,7 +25,12 @@ routes.get('/login', isGuest, (req, res) => {
   res.render('login', { layout: 'default', title: 'Cobertura: Acesse sua conta já'})
 })
 routes.get('/imoveis', (req, res) => {
-  res.render('imoveis', { layout: 'default' })
+  req.session.user = { name: 'Waldrey', surname: 'Souza Silva', avatar: 'avatar.png' }
+  res.render('imoveis', { 
+    layout: 'default', 
+    title: 'Cobertura: Imóveis',
+    user: req.session.user 
+  })
 })
 
 routes.get('/home', (req, res) => {
