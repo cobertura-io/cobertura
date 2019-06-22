@@ -14,7 +14,7 @@
   width: 90%
   height: 150px
   .house-pic
-    width: 35%
+    width: 45%
     img
       height: 100%
       width: 100%
@@ -24,9 +24,38 @@
       object-position: center
   .house-description
     text-align: right
-    padding: $space-2 $space-1
+    padding: 20px $space-2
+    height: 100%
+    width: 100%
+    font-weight: 500
     .title
-      font-weight: 500
+      font-size: 1.1em
+    .address
+      color: lighten($black, 30)
+      font-size: .9em
+    .price
+      color: $primary
+      font-size: 1.3em
+      margin-top: $space-1
+      font-weight: bold 
+    hr 
+      margin: 0
+      border: .5px solid lighten($black, 30)
+    .details
+      display: flex
+      flex-direction: row
+      width: 100%
+      height: 50%
+      align-items: center
+      justify-content: space-around
+      .bedrooms
+        @extend %bedrooms
+      .bathroom
+        @extend %bedrooms
+      .garage
+        @extend %bedrooms
+      .size
+        @extend %bedrooms
   .badge
     position: absolute
     top: -10px
