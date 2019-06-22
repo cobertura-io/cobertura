@@ -10,7 +10,7 @@
             <div class="dropdown">
               <a class="name align-items-center dropdown-toggle" href="#!" id="dropdownMenuButton"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Barbara Azevedo
+                {{ user.name }} {{ user.surname }}
                 <span class="fal ml-1"></span>
               </a>
               <div class="dropdown-menu fade" aria-labelledby="dropdownMenuButton">
@@ -23,7 +23,7 @@
             </div>
           </li>
         </ul>
-        <img src="https://picsum.photos/id/1011/500/500" alt="Foto de perfil" class="img-perfil" height="48">
+        <img src="images/avatars/{{ user.avatar }}" alt="Foto de perfil" class="img-perfil" height="48">
       </ul>
     </div>
   </nav>
