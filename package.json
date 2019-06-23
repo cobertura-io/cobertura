@@ -18,6 +18,7 @@
     "nodemon": "^1.19.1",
     "redis": "^2.8.0",
     "sass": "^1.21.0",
+    "stringify-object": "^3.3.0",
     "vhost": "^3.0.2"
   },
   "devDependencies": {
