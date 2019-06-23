@@ -2,7 +2,13 @@ const path = require('path')
 const redis = require('redis');
 const express = require('express')
 const hbs = require('express-handlebars')
+
 const session = require('express-session')
+
+
+// Testes
+const stringifyObject = require('stringify-object');
+
 
 // Configurações Redis
 const redisClient = redis.createClient();
@@ -16,12 +22,25 @@ redisClient.on('error', (err) => {
 
 app.set('view engine', 'hbs')
 app.set('views', path.join(__dirname, 'views/pages'))
-app.engine('hbs', hbs({
+
+const hbsConfig = hbs.create({
   extname: 'hbs',
   defaultView: 'default',
   layoutsDir: path.join(__dirname, 'views/layout/'),
-  partialsDir: path.join(__dirname, 'views/partials/')
-}))
+  partialsDir: path.join(__dirname, 'views/partials/'),
+
+  helpers: {
+    json: function(obj_from_json) {
+      const pretty = stringifyObject(obj_from_json, {
+        indent: '  ',
+        singleQuotes: false
+      });
+      return pretty
+    }
+  }
+})
+
+app.engine('hbs', hbsConfig.engine)
 
 app.use(session({
   secret: '63c363900743460b3cf1eb09ce4fbf18',
@@ -31,6 +50,7 @@ app.use(session({
   cookie: { secure: false },
   store: new redisStore({ host: 'localhost', port: 6379, client: redisClient, ttl: 86400 }),
 }));
+
 app.use(express.static('public'))
 app.use(require('./routes'));
 
