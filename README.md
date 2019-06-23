@@ -11,6 +11,7 @@ Coisas necessárias para rodar o maravilhoso **Cobertura** 😁
 * Node.js
 * Yarn/NPM (Recomendável utilizar YARN)
 * Nodemon
+* Redis
 
 ## Estrutura de pastas
 ```
