@@ -1,29 +1,29 @@
 <div class="card">
   <div class="badge">À VENDA</div>
   <div class="house-pic">
-    <img src="../images/house.jpeg" alt="" srcset="">
+    <img src="{{ picture }}" alt="" srcset="">
   </div>
   <div class="house-description">
-    <div class="title">Casa bonitona com varanda</div>
-    <div class="address">Rua humaitá 237</div>
-    <div class="price">R$ 160.000,00</div>
+    <div class="title">{{ title }}</div>
+    <div class="address">{{ address }}</div>
+    <div class="price">R$ {{ price }}</div>
     <hr>
     <div class="details">
       <div class="bedrooms">
         <span class="fa"></span>
-        <span class="qtd">2</span>
+        <span class="qtd">{{ bedroom }}</span>
       </div>
       <div class="bathroom">
         <span class="fa"></span>
-        <span class="qtd">2</span>
+        <span class="qtd">{{ bathroom }}</span>
       </div>
       <div class="garage">
         <span class="fa"></span>
-        <span class="qtd">2</span>
+        <span class="qtd">{{ garage }}</span>
       </div>
       <div class="size">
         <span class="fa"></span>
-        <span class="qtd">2</span>
+        <span class="qtd">{{ size }}m²</span>
       </div>
     </div>
   </div>

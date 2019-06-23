@@ -1,3 +1,54 @@
+<style>
+  .popup-bubble {
+        /* Position the bubble centred-above its parent. */
+        position: absolute;
+        top: 11rem;
+        right: -1.4rem;
+        transform: translate(-50%, -100%);
+        display:flex;
+        flex-direction:row;
+        margin:.5rem 0 1rem 0;
+        background-color:#fff;
+        -webkit-transition:-webkit-box-shadow .25s;
+        transition:-webkit-box-shadow .25s;
+        transition:box-shadow .25s;
+        transition:box-shadow .25s,
+        -webkit-box-shadow .25s;
+        border:1px solid #d2d4d9;
+        border-radius:8px;
+        box-shadow:3px 3px 8px -2px rgba(56,59,65,.3);
+        width:300px;
+        height:160px;
+        font-family: "CircularStd";
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      .popup-bubble .badge{position:absolute;top:-10px;right:16px;width:80px;height:24px;background-color:#445ee9;color:#fff;text-align:center;line-height:24px;text-transform:uppercase;border-radius:4px;font-weight:500;font-size:.8em}
+      .popup-bubble .house-description{text-align:right;padding:20px 16px;height:100%;width:100%;font-weight:500}
+      .popup-bubble .house-description .title{font-size:2em}
+      .popup-bubble .house-description .address{color:#808692;font-size:1em}
+      .popup-bubble .house-description .price{color:#445ee9;font-size:2em;margin-top:8px;font-weight:bold}
+      .popup-bubble .house-description .button{
+        background-color:#445ee9;
+        width: 100%;
+        padding: 10px;
+        color: #fff;
+        border-radius: 8px;
+        border: 0;
+        font-size:1.3em;
+        font-weight: bold;
+        font-family: "CircularStd";
+      }
+      /* JavaScript will position this div at the bottom of the popup tip. */
+      .popup-container {
+        cursor: auto;
+        height: 0;
+        position: absolute;
+        /* The max width of the info window. */
+        width: 200px;
+      }
+</style>
 <body>
 
   {{>navbar}}
@@ -5,11 +56,21 @@
 <section class="houses">
   <div class="row">
     <div class="col s4 cards-list">
-      {{>card}}
-      {{>card}}
-      {{>card}}
+      {{#each houses }}
+        {{>card this}}
+      {{/each}}
     </div>
     <div id='map' class="col s8 map"></div>
+      <div id='content' class="card">
+        <div class="badge">À VENDA</div>
+        <div class="house-description">
+          <div class="title">Uma casa incrível</div>
+          <div class="address">Rua Gisele Martins, Cidade Morumbi</div>
+          <div class="price">R$ 570.000,00</div>
+          <hr>
+          <button class='button'>Agendar visita</button>
+        </div>
+      </div>
     <form class="search-group">
       <input type="text" name="search-item" id="search-item" class="input-search" placeholder="Pesquisar"
         autocomplete="off">
@@ -20,18 +81,18 @@
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="../js/bootstrap.bundle.min.js"></script>
+
+  <!-- Google Maps -->
+  <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATtQNsJcdUPFYLDundA0OV9FWlN5WXpak&callback=initMap" async defer></script>
   <script>
-    var map;
+    var map,popup, Popup;
+    var locations = []
 
-    var locations = [
-      { lat: -23.2530996, lng: -45.898194100000005 },
-      { lat: -23.252713, lng: -45.897972 },
-      { lat: -23.253962, lng: -45.898405 },
-      { lat: -23.239188, lng: -45.894942 },
-      { lat: -23.239188, lng: -45.894942 }
-    ]
+    houses = {{{json houses}}}
+    houses.map((house) => locations.push(house))
 
-    var iconBase = 'http://localhost:8080/images/marker.svg'
+    var iconBase = 'http://localhost:8080/images/marker.png'
     var icons = {
       house: {
         icon: iconBase
@@ -48,24 +109,43 @@
 
       var markers = locations.map(function (location, i) {
         return new google.maps.Marker({
-          position: location,
-          icon: iconBase
+          position: { lat: location.lat, lng: location.lng },
+          size: new google.maps.Size(10, 10),
+          title: 'house: 0',
+          icon: iconBase,
+          house: {
+            id: location.id,
+            title: location.title,
+            price: location.price,
+            address: location.address,
+            lat: location.lat,
+            lng: location.lng
+          }
         });
       });
 
-      var mcOptions = {
-        //imagePath: 'https://googlemaps.github.io/js-marker-clusterer/images/m',
-        styles: [{
+      markers.map(marker => {
+        marker.addListener('click', function() {
+          console.log(marker)
+          Popup = createPopupClass();
+          popup = new Popup(
+            new google.maps.LatLng(marker.house.lat, marker.house.lng),
+            document.getElementById('content'), marker.house);
+          popup.setMap(map);
+          //infowindow.open(map, marker);
+          //infowindow.setContent(contentWindow(marker.house.title, marker.house.address, marker.house.price))
+        });
+      })
 
+      var mcOptions = {
+        styles: [{
           url: iconBase,
-          width: 30,
+          width: 20,
           height: 30,
           textSize: 14,
           fontFamily: "CircularStd",
           textColor: "white",
-          //color: #00FF00,
         }]
-
       };
 
       var markerCluster = new MarkerClusterer(map, markers, mcOptions);
@@ -88,6 +168,7 @@
       }
     }
 
+/*
     function handleLocationError(browserHasGeolocation, infoWindow, pos) {
       infoWindow.setPosition(pos);
       infoWindow.setContent(browserHasGeolocation ?
@@ -95,7 +176,7 @@
         'Error: Your browser doesn\'t support geolocation.');
       infoWindow.open(map);
     }
-
+*/
     var styles = {
       default: null,
       hide: [
@@ -111,10 +192,66 @@
       ]
     };
 
+    // Create popup
+    function createPopupClass() {
+      function Popup(position, content, data) {
+        this.position = position;
+        content.classList.add('popup-bubble');
+
+        content.children[0].innerHTML = 'À VENDA'
+        content.children[1].children[0].innerHTML = data.title
+        content.children[1].children[1].innerHTML = data.address
+        content.children[1].children[2].innerHTML = data.price
+    // This zero-height div is positioned at the bottom of the bubble.
+    var bubbleAnchor = document.createElement('div');
+    bubbleAnchor.appendChild(content);
+
+    // This zero-height div is positioned at the bottom of the tip.
+    this.containerDiv = document.createElement('div');
+    this.containerDiv.classList.add('popup-container');
+    this.containerDiv.appendChild(bubbleAnchor);
+
+    // Optionally stop clicks, etc., from bubbling up to the map.
+    google.maps.OverlayView.preventMapHitsAndGesturesFrom(this.containerDiv);
+  }
+  // ES5 magic to extend google.maps.OverlayView.
+  Popup.prototype = Object.create(google.maps.OverlayView.prototype);
+
+  /** Called when the popup is added to the map. */
+  Popup.prototype.onAdd = function() {
+    this.getPanes().floatPane.appendChild(this.containerDiv);
+  };
+
+  /** Called when the popup is removed from the map. */
+  Popup.prototype.onRemove = function() {
+    if (this.containerDiv.parentElement) {
+      this.containerDiv.parentElement.removeChild(this.containerDiv);
+    }
+  };
+
+  /** Called each frame when the popup needs to draw itself. */
+  Popup.prototype.draw = function() {
+    var divPosition = this.getProjection().fromLatLngToDivPixel(this.position);
+
+    // Hide the popup when it is far out of view.
+    var display =
+        Math.abs(divPosition.x) < 4000 && Math.abs(divPosition.y) < 4000 ?
+        'block' :
+        'none';
+
+    console.log(display)
+    if (display === 'block') {
+      this.containerDiv.style.display = "none";
+      console.log(this.containerDiv.style.display)
+      this.containerDiv.style.left = divPosition.x + 'px';
+      this.containerDiv.style.top = divPosition.y + 'px';
+    }
+    if (this.containerDiv.style.display !== display) {
+      this.containerDiv.style.display = display;
+    }
+  };
+
+  return Popup;
+}
   </script>
-  <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
-  </script>
-  </script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATtQNsJcdUPFYLDundA0OV9FWlN5WXpak&callback=initMap"
-    async defer></script>
 </body>
